@@ -7,6 +7,7 @@ import psutil
 import shutil
 import string
 import asyncio
+from config import Config 
 from pyrogram import Client, filters
 from asyncio import TimeoutError
 from pyrogram.errors import MessageNotModified
@@ -20,6 +21,8 @@ from functions.forcesub import handle_force_subscribe
 
 @Client.on_message(filters.command(["start"]) & filters.private)
 async def start(bot, update):
+    if update.sender_id not in Config.AUTH_USERS:
+        return await event.reply("__Access Denied ⚠️\n\nContact:@Be4stX__")
     if not update.from_user:
         return await update.reply_text("I don't know about you sar :(")
     await add_user_to_database(bot, update)
