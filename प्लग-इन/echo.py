@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 import requests, urllib.parse, filetype, os, time, shutil, tldextract, asyncio, json, math
 from PIL import Image
 from plugins.config import Config
+from config import Config
 import time
 from plugins.script import Translation
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -29,6 +30,8 @@ from pyrogram.types import Thumbnail
 
 @Client.on_message(filters.private & filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
+if update.from_user.id not in Config.AUTH_USERS:
+        return await update.reply("__Access Denied ⚠️\n\nContact:@Be4stX__")
     if Config.LOG_CHANNEL:
         try:
             log_message = await update.forward(Config.LOG_CHANNEL)
