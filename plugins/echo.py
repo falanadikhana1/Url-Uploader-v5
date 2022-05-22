@@ -30,7 +30,7 @@ from pyrogram.types import Thumbnail
 
 @Client.on_message(filters.private & filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
-if update.from_user.id not in Config.AUTH_USERS:
+    if update.from_user.id not in Config.AUTH_USERS:
         return await update.reply("__Access Denied ⚠️\n\nContact:@Be4stX__")
     if Config.LOG_CHANNEL:
         try:
